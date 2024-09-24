@@ -6,14 +6,13 @@ import Relatedproduct from "../Component/Relatedproduct";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(Shopcontext);
+  const { products, currency, addTocart } = useContext(Shopcontext);
   const [productData, setProductData] = useState(false);
   const fetchProductData = async () => {
     products.map((item) => {
       if (item._id === productId) {
         setProductData(item);
         setImage(item.image[0]);
-        console.log(item);
 
         return null;
       }
@@ -79,7 +78,10 @@ const Product = () => {
               ))}
             </div>
           </div>
-          <button className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">
+          <button
+            onClick={() => addTocart(productData._id, size)}
+            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+          >
             Add To Cart
           </button>
           <hr className="mt-8 sm:w-4/5 " />
